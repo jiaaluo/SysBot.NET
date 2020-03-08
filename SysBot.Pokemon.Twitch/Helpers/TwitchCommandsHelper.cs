@@ -11,13 +11,13 @@ namespace SysBot.Pokemon.Twitch
 
             if (set.Species < 1)
             {
-                msg = $"Skipping trade, {username}: Please read what you are supposed to type as the command argument.";
+                msg = $"trivialGrr Skipping trade, {username}: Please read what you are supposed to type as the command argument. trivialGrr";
                 return false;
             }
 
             if (set.InvalidLines.Count != 0)
             {
-                msg = $"Skipping trade, {username}: Unable to parse Showdown Set:\n{string.Join("\n", set.InvalidLines)}";
+                msg = $"trivialGrr Skipping trade, {username}: Unable to parse Showdown Set:\n{string.Join("\n", set.InvalidLines)} trivialGrr";
                 return false;
             }
 
@@ -26,7 +26,7 @@ namespace SysBot.Pokemon.Twitch
 
             if (!pkm.CanBeTraded())
             {
-                msg = "Provided Pokémon content is blocked from trading!";
+                msg = "Provided Pokï¿½mon content is blocked from trading!";
                 return false;
             }
 
@@ -35,11 +35,11 @@ namespace SysBot.Pokemon.Twitch
             {
                 var tq = new TwitchQueue(pk8, new PokeTradeTrainerInfo(display), username);
                 TwitchBot.QueuePool.Add(tq);
-                msg = $"{username} - added to the waiting list. Please whisper to me your trade code! Your request from the waiting list will be removed if you are too slow!";
+                msg = $"trivialSimba {username} - added to the waiting list. Please whisper to me your trade code! Your request from the waiting list will be removed if you are too slow! trivialSimba";
                 return true;
             }
 
-            msg = $"Skipping trade, {username}: Unable to legalize the Pokémon.";
+            msg = $"trivialMonkaS Skipping trade, {username}: Unable to legalize the Pokï¿½mon. trivialMonkaS";
             return false;
         }
 
@@ -61,7 +61,7 @@ namespace SysBot.Pokemon.Twitch
             {
                 QueueResultRemove.CurrentlyProcessing => "Looks like you're currently being processed! Removed from queue.",
                 QueueResultRemove.Removed => "Removed you from the queue.",
-                _ => "Sorry, you are not currently in the queue."
+                _ => "trivialMonkaS Sorry, you are not currently in the queue. trivialMonkaS"
             };
         }
     }

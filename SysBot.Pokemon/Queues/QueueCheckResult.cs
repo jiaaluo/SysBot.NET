@@ -1,4 +1,4 @@
-﻿using PKHeX.Core;
+using PKHeX.Core;
 
 namespace SysBot.Pokemon
 {
@@ -22,7 +22,7 @@ namespace SysBot.Pokemon
         public string GetMessage()
         {
             if (!InQueue || Detail is null)
-                return "You are not in the queue.";
+                return "trivialMonkaS You are not in the queue. trivialMonkaS";
             var position = $"{Position}/{QueueCount}";
             var msg = $"You are in the {Detail.Type} queue! Position: {position} (ID {Detail.Trade.ID})";
             var pk = Detail.Trade.TradeData;

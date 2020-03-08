@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -109,18 +109,18 @@ namespace SysBot.Pokemon.Twitch
 
             if (added == QueueResultAdd.AlreadyInQueue)
             {
-                msg = "Sorry, you are already in the queue.";
+                msg = "trivialMonkaS Sorry, you are already in the queue. trivialMonkaS ";
                 return false;
             }
 
             var position = Info.CheckPosition(userID, type);
-            msg = $"{name} - Added to the {type} queue, unique ID: {detail.ID}. Current Position: {position.Position}";
+            msg = $"trivialShinx {name} - Added to the TrivialTrader, unique ID: {detail.ID}. Current Position: {position.Position}";
 
             var botct = Info.Hub.Bots.Count;
             if (position.Position > botct)
             {
                 var eta = Info.Hub.Config.Queues.EstimateDelay(position.Position, botct);
-                msg += $". Estimated: {eta:F1} minutes.";
+                msg += $". Estimated: {eta:F1} minutes. trivialShinx";
             }
             return true;
         }
