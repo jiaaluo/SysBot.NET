@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 
@@ -12,6 +12,9 @@ namespace SysBot.Pokemon
         private const string Integration = nameof(Integration);
         private const string Debug = nameof(Debug);
 
+        [Category(FeatureToggle), Description("This will block OTs in-game separated by each line in the editor(ellipses or three dots) ")]
+        public string[] BlockedOTList { get; set; }
+        
         [Category(FeatureToggle), Description("When enabled, the bot will press the B button occasionally when it is not processing anything (to avoid sleep).")]
         public bool AntiIdle { get; set; }
 

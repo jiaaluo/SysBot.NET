@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -206,6 +206,38 @@ namespace SysBot.Pokemon
                 await Click(B, 1_000, token).ConfigureAwait(false);
                 await Click(B, 1_000, token).ConfigureAwait(false);
                 await Click(A, 1_000, token).ConfigureAwait(false);
+            }
+        }
+
+        public async Task BlockUserAndLeave(bool unexpected, CancellationToken token)
+        {
+            if (unexpected)
+                Connection.Log("Unexpected behavior, recover position");
+
+            int attempts = 0;
+            uint screenID = 0;
+            int softBanAttempts = 0;
+            while (screenID != CurrentScreen_Overworld)
+            {
+                screenID = await GetCurrentScreen(token).ConfigureAwait(false);
+                if (screenID == CurrentScreen_Softbann)
+                {
+                    softBanAttempts++;
+                    if (softBanAttempts > 10)
+                        await ReOpenGame(token).ConfigureAwait(false);
+                }
+
+                attempts++;
+                if (attempts >= 15)
+                    break;
+
+                await Click(RSTICK, 1_000, token).ConfigureAwait(false);
+                await Click(DUP, 1_100, token).ConfigureAwait(false);
+                await Click(A, 1_100, token).ConfigureAwait(false);
+                await Click(A, 1_100, token).ConfigureAwait(false);
+                await Click(DUP, 1_500, token).ConfigureAwait(false);
+                await Click(A, 1_100, token).ConfigureAwait(false);
+                await Click(A, 1_100, token).ConfigureAwait(false);
             }
         }
 

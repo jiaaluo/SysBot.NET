@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -77,16 +77,17 @@ namespace SysBot.Pokemon.Twitch
         {
             Task.Run(async () =>
             {
-                client.SendMessage(Channel, "5...");
+                client.SendMessage(Channel, "trivialHype TRADE NOW COMMENCING IN 5... trivialHype");
                 await Task.Delay(1_000).ConfigureAwait(false);
-                client.SendMessage(Channel, "4...");
+                client.SendMessage(Channel, "...4...");
                 await Task.Delay(1_000).ConfigureAwait(false);
-                client.SendMessage(Channel, "3...");
+                client.SendMessage(Channel, "...3...");
                 await Task.Delay(1_000).ConfigureAwait(false);
-                client.SendMessage(Channel, "2...");
+                client.SendMessage(Channel, "...2...");
                 await Task.Delay(1_000).ConfigureAwait(false);
-                client.SendMessage(Channel, "1...");
+                client.SendMessage(Channel, "...1...");
                 await Task.Delay(1_000).ConfigureAwait(false);
+                client.SendMessage(Channel, "trivialTaco TRADE trivialTaco TRADE trivialTaco TRADE");
                 if (!string.IsNullOrWhiteSpace(message))
                     client.SendMessage(Channel, message);
             });
@@ -108,18 +109,18 @@ namespace SysBot.Pokemon.Twitch
 
             if (added == QueueResultAdd.AlreadyInQueue)
             {
-                msg = "Sorry, you are already in the queue.";
+                msg = "trivialMonkaS Sorry, you are already in the queue. trivialMonkaS ";
                 return false;
             }
 
             var position = Info.CheckPosition(userID, type);
-            msg = $"{name} - Added to the {type} queue, unique ID: {detail.ID}. Current Position: {position.Position}";
+            msg = $"trivialShinx {name} - Added to the TrivialTrader, unique ID: {detail.ID}. Current Position: {position.Position}";
 
             var botct = Info.Hub.Bots.Count;
             if (position.Position > botct)
             {
                 var eta = Info.Hub.Config.Queues.EstimateDelay(position.Position, botct);
-                msg += $". Estimated: {eta:F1} minutes.";
+                msg += $". Estimated: {eta:F1} minutes. trivialShinx";
             }
             return true;
         }

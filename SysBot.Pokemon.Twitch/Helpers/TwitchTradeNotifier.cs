@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using PKHeX.Core;
 using SysBot.Base;
@@ -38,7 +38,7 @@ namespace SysBot.Pokemon.Twitch
         public void TradeCanceled(PokeRoutineExecutor routine, PokeTradeDetail<T> info, PokeTradeResult msg)
         {
             OnFinish?.Invoke(routine);
-            var line = $"Trade canceled: {msg}";
+            var line = $"trivialBruh Trade canceled: {msg} trivialBruh";
             // Client.SendMessage(Channel, line);
             LogUtil.LogText(line);
         }
@@ -47,7 +47,7 @@ namespace SysBot.Pokemon.Twitch
         {
             OnFinish?.Invoke(routine);
             var tradedToUser = Data.Species;
-            var message = tradedToUser != 0 ? $"Trade finished. Enjoy your {(Species)tradedToUser}!" : "Trade finished!";
+            var message = tradedToUser != 0 ? $"trivialSquirtle Trade finished. Enjoy your {(Species)tradedToUser}! trivialSquirtle" : "Trade finished! trivialSquirtle";
             // Client.SendMessage(Channel, message);
             LogUtil.LogText(message);
         }
@@ -55,7 +55,7 @@ namespace SysBot.Pokemon.Twitch
         public void TradeInitialize(PokeRoutineExecutor routine, PokeTradeDetail<T> info)
         {
             var receive = Data.Species == 0 ? string.Empty : $" ({Data.Nickname})";
-            Client.SendMessage(Channel, $"Initializing trade{receive} with you, {info.Trainer.TrainerName} (ID: {info.ID}). Please be ready. Use the code you whispered me to search!");
+            Client.SendMessage(Channel, $"trivialHype {receive} It's your turn! {info.Trainer.TrainerName} (ID: {info.ID}). Please be ready. Use the code you whispered me to search! trivialHype");
         }
 
         public void TradeSearching(PokeRoutineExecutor routine, PokeTradeDetail<T> info)
