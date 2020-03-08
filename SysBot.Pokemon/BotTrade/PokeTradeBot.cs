@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using PKHeX.Core;
@@ -229,7 +229,17 @@ namespace SysBot.Pokemon
             }
 
             poke.SendNotification(this, $"Found Trading Partner: {TrainerName}. Waiting for a Pokémon...");
-
+            
+            foreach (string x in Hub.Config.BlockedOTList)
+            {
+                if (TrainerName.Contains(x))
+                {
+                    await BlockUserAndLeave(true, token).ConfigureAwait(false);
+                    Connection.Log($"{TrainerName} has been blocked.");
+                    return PokeTradeResult.Recover;
+                }
+            }
+            
             if (poke.Type == PokeTradeType.Dump)
                 return await ProcessDumpTradeAsync(poke, token).ConfigureAwait(false);
 

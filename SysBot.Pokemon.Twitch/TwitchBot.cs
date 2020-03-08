@@ -77,16 +77,17 @@ namespace SysBot.Pokemon.Twitch
         {
             Task.Run(async () =>
             {
-                client.SendMessage(Channel, "5...");
+                client.SendMessage(Channel, "trivialHype TRADE NOW COMMENCING IN 5... trivialHype");
                 await Task.Delay(1_000).ConfigureAwait(false);
-                client.SendMessage(Channel, "4...");
+                client.SendMessage(Channel, "...4...");
                 await Task.Delay(1_000).ConfigureAwait(false);
-                client.SendMessage(Channel, "3...");
+                client.SendMessage(Channel, "...3...");
                 await Task.Delay(1_000).ConfigureAwait(false);
-                client.SendMessage(Channel, "2...");
+                client.SendMessage(Channel, "...2...");
                 await Task.Delay(1_000).ConfigureAwait(false);
-                client.SendMessage(Channel, "1...");
+                client.SendMessage(Channel, "...1...");
                 await Task.Delay(1_000).ConfigureAwait(false);
+                client.SendMessage(Channel, "trivialTaco TRADE trivialTaco TRADE trivialTaco TRADE");
                 if (!string.IsNullOrWhiteSpace(message))
                     client.SendMessage(Channel, message);
             });
