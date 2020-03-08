@@ -26,7 +26,7 @@ namespace SysBot.Pokemon.Twitch
 
             if (!pkm.CanBeTraded())
             {
-                msg = "Provided Pok�mon content is blocked from trading!";
+                msg = "Provided Pokémon content is blocked from trading!";
                 return false;
             }
 
@@ -39,7 +39,7 @@ namespace SysBot.Pokemon.Twitch
                 return true;
             }
 
-            msg = $"trivialMonkaS Skipping trade, {username}: Unable to legalize the Pok�mon. trivialMonkaS";
+            msg = $"trivialMonkaS Skipping trade, {username}: Unable to legalize the Pokémon. trivialMonkaS";
             return false;
         }
 
