@@ -11,7 +11,7 @@ namespace SysBot.Pokemon.Twitch
 
             if (set.Species < 1)
             {
-                msg = $"trivialGrr Skipping trade, {username}: Please read what you are supposed to type as the command argument. trivialGrr";
+                msg = $"trivialGrr Skipping trade, {username}: Please follow the correct procedure or ask a Moderator. trivialGrr";
                 return false;
             }
 
@@ -35,7 +35,7 @@ namespace SysBot.Pokemon.Twitch
             {
                 var tq = new TwitchQueue(pk8, new PokeTradeTrainerInfo(display), username);
                 TwitchBot.QueuePool.Add(tq);
-                msg = $"trivialSimba {username} - added to the waiting list. Please whisper to me your trade code! Your request from the waiting list will be removed if you are too slow! trivialSimba";
+                msg = $"trivialSimba {username} - Please whisper a 4 digit code! trivialSimba";
                 return true;
             }
 

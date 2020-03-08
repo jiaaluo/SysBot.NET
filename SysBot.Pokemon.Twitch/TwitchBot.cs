@@ -114,7 +114,7 @@ namespace SysBot.Pokemon.Twitch
             }
 
             var position = Info.CheckPosition(userID, type);
-            msg = $"trivialShinx {name} - Added to the TrivialTrader, unique ID: {detail.ID}. Current Position: {position.Position}";
+            msg = $"trivialShinx {name} - Added to the TrivialTrader. Current Position: {position.Position}";
 
             var botct = Info.Hub.Bots.Count;
             if (position.Position > botct)
