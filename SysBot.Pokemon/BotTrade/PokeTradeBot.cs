@@ -236,7 +236,7 @@ namespace SysBot.Pokemon
                 {
                     await BlockUserAndLeave(true, token).ConfigureAwait(false);
                     Connection.Log($"{TrainerName} has been blocked.");
-                    return PokeTradeResult.Recover;
+                    return PokeTradeResult.RecoverStart;
                 }
             }
             
