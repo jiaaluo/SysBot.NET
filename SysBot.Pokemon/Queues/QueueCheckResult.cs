@@ -24,7 +24,7 @@ namespace SysBot.Pokemon
             if (!InQueue || Detail is null)
                 return "trivialMonkaS You are not in the queue. trivialMonkaS";
             var position = $"{Position}/{QueueCount}";
-            var msg = $"You are in the {Detail.Type} queue! Position: {position} (ID {Detail.Trade.ID})";
+            var msg = $"Position: {position} (ID {Detail.Trade.ID})";
             var pk = Detail.Trade.TradeData;
             if (pk.Species != 0)
                 msg += $", Receiving: {(Species)Detail.Trade.TradeData.Species}";
