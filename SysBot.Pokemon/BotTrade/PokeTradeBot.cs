@@ -251,10 +251,10 @@ namespace SysBot.Pokemon
                 return PokeTradeResult.TrainerTooSlow;
             }
 
-            if (poke.Type == PokeTradeType.Dudu)
+            if (poke.Type == PokeTradeType.Seed)
             {
                 // Immediately exit, we aren't trading anything.
-                return await EndDuduTradeAsync(poke, pk, token).ConfigureAwait(false);
+                return await EndSeedCheckTradeAsync(poke, pk, token).ConfigureAwait(false);
             }
 
             if (poke.Type == PokeTradeType.Random) // distribution
@@ -420,7 +420,7 @@ namespace SysBot.Pokemon
             }
 
             Connection.Log($"Ended Dump loop after processing {ctr} Pokémon");
-            await ExitDuduTrade(token).ConfigureAwait(false);
+            await ExitSeedCheckTrade(token).ConfigureAwait(false);
             if (ctr == 0)
                 return PokeTradeResult.TrainerTooSlow;
 
@@ -547,9 +547,9 @@ namespace SysBot.Pokemon
             return PokeTradeResult.Success;
         }
 
-        private async Task<PokeTradeResult> EndDuduTradeAsync(PokeTradeDetail<PK8> detail, PK8 pk, CancellationToken token)
+        private async Task<PokeTradeResult> EndSeedCheckTradeAsync(PokeTradeDetail<PK8> detail, PK8 pk, CancellationToken token)
         {
-            await ExitDuduTrade(token).ConfigureAwait(false);
+            await ExitSeedCheckTrade(token).ConfigureAwait(false);
 
             detail.TradeFinished(this, pk);
 
@@ -571,7 +571,7 @@ namespace SysBot.Pokemon
             }, token);
 #pragma warning restore 4014
 
-            Hub.Counts.AddCompletedDudu();
+            Hub.Counts.AddCompletedSeedCheck();
 
             return PokeTradeResult.Success;
         }
@@ -595,7 +595,7 @@ namespace SysBot.Pokemon
             var ec = result.EncryptionConstant;
             var pid = result.PID;
             var IVs = result.IVs.Length == 0 ? GetBlankIVTemplate() : PKX.ReorderSpeedLast((int[])result.IVs.Clone());
-            if (Hub.Config.Dudu.ShowAllZ3Results)
+            if (Hub.Config.SeedCheck.ShowAllZ3Results)
             {
                 var matches = Z3Search.GetAllSeeds(ec, pid, IVs);
                 foreach (var match in matches)
