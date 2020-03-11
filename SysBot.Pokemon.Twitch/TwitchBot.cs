@@ -35,6 +35,12 @@ namespace SysBot.Pokemon.Twitch
             {
                 MessagesAllowedInPeriod = settings.ThrottleMessages,
                 ThrottlingPeriod = TimeSpan.FromSeconds(settings.ThrottleSeconds),
+
+                WhispersAllowedInPeriod = settings.ThrottleWhispers,
+                WhisperThrottlingPeriod = TimeSpan.FromSeconds(settings.ThrottleWhispersSeconds),
+
+                // message queue capacity is managed (10_000 for message & whisper separately)
+                // message send interval is managed (50ms for each message sent)
             };
 
             Channel = settings.Channel;
@@ -100,7 +106,7 @@ namespace SysBot.Pokemon.Twitch
             var name = e.WhisperMessage.DisplayName;
 
             var trainer = new PokeTradeTrainerInfo(name);
-            var notifier = new TwitchTradeNotifier<PK8>(pk8, trainer, code, e.WhisperMessage.Username, client, Channel);
+            var notifier = new TwitchTradeNotifier<PK8>(pk8, trainer, code, e.WhisperMessage.Username, client, Channel, Hub.Config.Twitch);
             var tt = type == PokeRoutineType.SeedCheck ? PokeTradeType.Seed : PokeTradeType.Specific;
             var detail = new PokeTradeDetail<PK8>(pk8, trainer, notifier, tt, code: code);
             var trade = new TradeEntry<PK8>(detail, userID, type, name);
@@ -169,7 +175,7 @@ namespace SysBot.Pokemon.Twitch
             var msg = e.Command.ChatMessage;
             var c = e.Command.CommandText.ToLower();
             var args = e.Command.ArgumentsAsString;
-            var response = HandleCommand(msg, c, args);
+            var response = HandleCommand(msg, c, args, false);
             if (response == null)
                 return;
 
@@ -185,7 +191,7 @@ namespace SysBot.Pokemon.Twitch
             var msg = e.Command.WhisperMessage;
             var c = e.Command.CommandText.ToLower();
             var args = e.Command.ArgumentsAsString;
-            var response = HandleCommand(msg, c, args);
+            var response = HandleCommand(msg, c, args, true);
             if (response == null)
                 return;
 
@@ -195,7 +201,7 @@ namespace SysBot.Pokemon.Twitch
         private static bool IsSubscriber(ChatMessage c) => c.IsSubscriber || IsFounder(c);
         private static bool IsFounder(ChatMessage c) => c.BadgeInfo.Any(kvp => kvp.Key == "founder");
 
-        private string HandleCommand(TwitchLibMessage m, string c, string args)
+        private string HandleCommand(TwitchLibMessage m, string c, string args, bool whisper)
         {
             bool sudo() => m is ChatMessage ch && (ch.IsBroadcaster || Settings.IsSudo(m.Username));
             bool disallowed() => Settings.SubOnlyBot && !((m is ChatMessage ch && IsSubscriber(ch)) || sudo());
@@ -210,6 +216,9 @@ namespace SysBot.Pokemon.Twitch
                     return Info.GetPositionString(ulong.Parse(m.UserId));
                 case "tc" when !disallowed():
                     return TwitchCommandsHelper.ClearTrade(ulong.Parse(m.UserId));
+
+                case "code" when whisper && !disallowed():
+                    return TwitchCommandsHelper.GetCode(ulong.Parse(m.UserId));
 
                 // Sudo Only Commands
                 case "tca" when !sudo():

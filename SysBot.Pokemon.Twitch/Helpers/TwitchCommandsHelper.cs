@@ -7,6 +7,12 @@ namespace SysBot.Pokemon.Twitch
         // Helper functions for commands
         public static bool AddToWaitingList(string setstring, string display, string username, out string msg)
         {
+            if (!TwitchBot.Info.GetCanQueue())
+            {
+                msg = "Sorry, I am not currently accepting queue requests!";
+                return false;
+            }
+
             ShowdownSet set = TwitchShowdownUtil.ConvertToShowdown(setstring);
 
             if (set.Species < 1)
@@ -63,6 +69,14 @@ namespace SysBot.Pokemon.Twitch
                 QueueResultRemove.Removed => "Removed you from the queue.",
                 _ => "trivialMonkaS Sorry, you are not currently in the queue. trivialMonkaS"
             };
+        }
+
+        public static string GetCode(ulong parse)
+        {
+            var detail = TwitchBot.Info.GetDetail(parse);
+            return detail == null
+                ? "Sorry, you are not currently in the queue."
+                : $"Your trade code is {detail.Trade.Code:0000}";
         }
     }
 }
